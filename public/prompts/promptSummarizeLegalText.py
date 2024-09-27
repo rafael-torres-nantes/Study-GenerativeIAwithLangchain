@@ -1,4 +1,4 @@
-def Prompt1(name_pdf, message_pdf):
+def PromptSummarizeLegalText(name_pdf, message_pdf):
     """
     Cria um prompt detalhado para o modelo Bedrock.
 

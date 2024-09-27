@@ -1,7 +1,7 @@
 import json
 import boto3
 from botocore.exceptions import ClientError
-from utils.prompt import Prompt1
+from public.prompts.promptSummarizeLegalText import PromptSummarizeLegalText
 """
 Caso for testar o Bedrock veja se está habilitado o modelo no AWS Bedrock (https://us-east-1.console.aws.amazon.com/bedrock/home?region=us-east-1#/modelaccess)
 """
@@ -51,7 +51,7 @@ class BedrockService:
             'messages' : [
                             {
                             'role' : 'user', 
-                            'content': [{'type' : 'text', 'text' : Prompt1(self.name_pdf, self.message_pdf)}]
+                            'content': [{'type' : 'text', 'text' : PromptSummarizeLegalText(self.name_pdf, self.message_pdf)}]
                             }
                          ]  
         }

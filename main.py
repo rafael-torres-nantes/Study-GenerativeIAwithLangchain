@@ -1,5 +1,5 @@
 from controller.controller_calude import Controller
-from notebooks.ocr_services import process_pdfs_in_directory
+from services.ocr_services import process_pdfs_in_directory
 
 # Bloco principal executado ao rodar o script diretamente
 if __name__ == "__main__":
@@ -19,14 +19,12 @@ if __name__ == "__main__":
     # Inicializa uma variável para armazenar o resultado final após o processamento dos documentos.
     output_text = ""
 
-    # Inicializa uma instância da classe `Controller`, que será responsável por processar os documentos
-    # e executar o modelo Bedrock.
+    # Inicializa uma instância da classe `Controller`, que será responsável por processar os documentos e executar o modelo Bedrock.
     controller = Controller()
 
     for text in extract_texts:
         # Para cada texto extraído, chama o método `process_documents` do `Controller` para processar o conteúdo.
         controller.process_documents(text)
 
-        # Após o processamento de cada documento, o modelo Bedrock é executado e o resultado é adicionado
-        # à variável `output_text`. O método `execute_bedrock_model` é chamado para gerar uma resposta.
+        # Executa o modelo Bedrocke o resultado é adicionado à variável `output_text`.
         output_text += controller.execute_bedrock_model()
