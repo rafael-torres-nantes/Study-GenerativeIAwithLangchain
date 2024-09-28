@@ -1,6 +1,5 @@
-from services.bedrock_claude import BedrockService
-
-from utils.check_aws import AWS_SERVICES
+from ..services.bedrock_claude import BedrockService
+from ..utils.check_aws import AWS_SERVICES
 
 class Controller:
     def __init__(self):

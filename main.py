@@ -1,5 +1,5 @@
-from controller.controller_calude import Controller
-from services.ocr_services import process_pdfs_in_directory
+from services.ocr_services import extract_texts_from_directory
+from bedrock_claude.controller.controller_claude import Controller
 
 # Bloco principal executado ao rodar o script diretamente
 if __name__ == "__main__":
@@ -10,12 +10,14 @@ if __name__ == "__main__":
     """
 
     # Define o caminho do diretório onde estão localizados os arquivos PDF para processamento.
-    path = './files/ARE1467492' 
+    path = './data/legal_docs/ARE1467492' 
 
     # Extrai os textos de todos os arquivos PDF encontrados no diretório e suas subpastas.
     # A função `process_pdfs_in_directory` retorna uma lista de textos extraídos dos PDFs.
-    extract_texts = process_pdfs_in_directory(path)
+    extract_texts = extract_texts_from_directory(path)
 
+    print(extract_texts)
+    
     # Inicializa uma variável para armazenar o resultado final após o processamento dos documentos.
     output_text = ""
 

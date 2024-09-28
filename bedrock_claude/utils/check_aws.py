@@ -1,7 +1,7 @@
 import boto3
 import boto3.session
 from botocore.exceptions import ClientError
-from utils.import_credentials import aws_credentials
+from ..utils.import_credentials import aws_credentials
 
 class AWS_SERVICES:
     def __init__(self, region_name='us-east-1'):
