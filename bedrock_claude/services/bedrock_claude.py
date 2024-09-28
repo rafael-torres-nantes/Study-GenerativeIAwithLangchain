@@ -1,7 +1,7 @@
 import json
 import boto3
 from botocore.exceptions import ClientError
-from ..prompts.promptSummarizeLegalText import PromptSummarizeLegalText
+from prompts.promptSummarizeLegalText import PromptSummarizeLegalText
 
 """
 Caso for testar o Bedrock veja se está habilitado o modelo no AWS Bedrock (https://us-east-1.console.aws.amazon.com/bedrock/home?region=us-east-1#/modelaccess)
