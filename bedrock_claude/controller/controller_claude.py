@@ -1,8 +1,4 @@
-import os
-import sys
-
-from notebooks.bedrock_claude import BedrockService
-from notebooks.ocr_services import process_pdfs_in_directory
+from services.bedrock_claude import BedrockService
 
 from utils.check_aws import AWS_SERVICES
 
