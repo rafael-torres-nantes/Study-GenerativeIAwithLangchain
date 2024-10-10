@@ -1,6 +1,9 @@
 import json
 import boto3
 
+from prompts.prompts_template import create_prompt_template
+from bedrock_models.embedding_model import generate_embedding
+
 # Inicializa o cliente do Bedrock Agent para consultar e gerar respostas
 bedrock_agent_client = boto3.client('bedrock-agent-runtime')
 bedrock_client = boto3.client('bedrock-runtime')
@@ -9,47 +12,6 @@ bedrock_client = boto3.client('bedrock-runtime')
 CLAUDE_MODEL_ID = "anthropic.claude-3-5-sonnet-20240620-v1:0"  # Modelo de geração de texto
 TITAN_EMBEDDING_MODEL_ID = "amazon.titan-embed-text-v2:0"  # Modelo de embeddings (não utilizado aqui)
 KNOWLEDGE_BASE_ID = ""  # ID da base de conhecimento a ser definida
-
-# --------------------------------------------------------------------
-# Função que constrói o template de prompt para o modelo de geração
-# --------------------------------------------------------------------
-def create_prompt_template(query, contexts):
-    """
-    Constrói o prompt com base no contexto e na pergunta do usuário.
-    
-    :param contexts: Textos recuperados dos documentos relevantes.
-    :param query: Pergunta do usuário.
-    :return: String formatada como prompt para o modelo.
-    """
-    prompt = f"""
-    <context>
-    {contexts}
-    </context>
-
-    <question>
-    {query}
-    </question>
-    """
-    return prompt
-
-# --------------------------------------------------------------------
-# Função para gerar embeddings usando o Amazon Titan V2
-# --------------------------------------------------------------------
-def generate_embedding(user_query):
-    """
-    Gera o embedding de um texto usando o modelo Titan Embedding.
-
-    :param text: Texto a ser embeddado.
-    :return: Vetor de embedding.
-    """
-    response = bedrock_client.invoke_model(
-        modelId=TITAN_EMBEDDING_MODEL_ID,
-        accept='application/json',
-        contentType='application/json',
-        body=json.dumps({"inputText": user_query}),
-    )
-    response_body = json.loads(response['body'].read())
-    return response_body['embedding']
 
 # --------------------------------------------------------------------
 # Função para buscar documentos similares com base na query
@@ -117,7 +79,7 @@ def lambda_handler(event, context):
     print("Prompt do Usuário:", user_query)
 
     # Gera o embedding da consulta do usuário
-    query_embedding = generate_embedding(user_query)
+    query_embedding = generate_embedding(bedrock_client, user_query)
 
     # Realiza busca semântica usando os embeddings gerados
     relevant_text = semantic_search(query_embedding)
