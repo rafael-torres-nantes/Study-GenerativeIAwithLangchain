@@ -1,6 +1,8 @@
 import json
 import boto3
 
+from prompts.prompts_template import get_prompt
+
 # Inicializa o cliente do Bedrock Agent para consultar e gerar respostas
 bedrock_agent_client = boto3.client('bedrock-agent-runtime')
 bedrock_client = boto3.client('bedrock-runtime')
@@ -9,23 +11,6 @@ bedrock_client = boto3.client('bedrock-runtime')
 CLAUDE_MODEL_ID = "anthropic.claude-3-5-sonnet-20240620-v1:0"  # Modelo de geração de texto
 TITAN_EMBEDDING_MODEL_ID = "amazon.titan-embed-text-v2:0"  # Modelo de embeddings (não utilizado aqui)
 KNOWLEDGE_BASE_ID = ""  # ID da base de conhecimento a ser definida
-
-# --------------------------------------------------------------------
-# Função que constrói o prompt com base no contexto e na pergunta
-# --------------------------------------------------------------------
-def get_prompt():
-    """
-    Constrói o prompt genérico a ser usado no modelo.
-
-    :return: String formatada como prompt para o modelo.
-    """
-    prompt = """
-    $search_results$
-    
-    $output_format_instructions$
-    """
-    return prompt
-
 
 # --------------------------------------------------------------------
 # Função para gerar uma resposta utilizando RAG (retrieval and generation)
